@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Feeder</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="name">name</string>
+    <string name="content">content asd lkasj asjdlk ajsdlk ajsldk jalskjd asklj dlask jd content asd lkasj asjdlk ajsdlk ajsldk jalskjd asklj dlask jd content asd lkasj asjdlk ajsdlk ajsldk jalskjd asklj dlask jd content asd lkasj asjdlk ajsdlk ajsldk jalskjd asklj dlask jd content asd lkasj asjdlk ajsdlk ajsldk jalskjd asklj dlask jd content asd lkasj asjdlk ajsdlk ajsldk jalskjd asklj dlask jd content asd lkasj asjdlk ajsdlk ajsldk jalskjd asklj dlask jd </string>
+    <string name="activity_name_detail">RSS Detail</string>
+    <string name="action_share">Share link</string>
+    <string name="placeholder_title">Title</string>
+    <string name="placeholder_link">Link</string>
+    <string name="placeholder_description">Description</string>
+    <string name="share_link">Link: </string>
+    <string name="share_chooser">Share link via:</string>
+    <string name="detail_activity">Detail</string>
+</resources>
