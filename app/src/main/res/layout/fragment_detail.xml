@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/placeholder_title"
-        android:id="@+id/title"
+        android:id="@+id/title_detail"
         android:layout_gravity="center_horizontal" />
 
         <TextView
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/placeholder_link"
-            android:id="@+id/link"
+            android:id="@+id/link_detail"
             android:layout_marginTop="30dp"
             android:layout_gravity="center_horizontal" />
 
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="@string/placeholder_description"
-            android:id="@+id/description"
+            android:id="@+id/description_detail"
             android:layout_marginTop="30dp"
             android:layout_gravity="center_horizontal" />
     </LinearLayout>

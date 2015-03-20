@@ -2,7 +2,6 @@ package cz.cvut.fit.urbanp11.main.main;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -20,7 +19,9 @@ import cz.cvut.fit.urbanp11.main.data.model.Article;
  */
 public class MainFragment extends Fragment {
 
+    boolean dualPanel;
     private OnRowClickListener listener;
+    private LinearLayout fakeListView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -32,25 +33,44 @@ public class MainFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        final LinearLayout listView = (LinearLayout) getActivity().findViewById(R.id.fakeListLayout);
+        fakeListView = (LinearLayout) getActivity().findViewById(R.id.fakeListLayout);
+        updateFakeList();
 
+        View detail = getActivity().findViewById(R.id.detailfragment);
+        dualPanel = detail != null && detail.getVisibility() == View.VISIBLE;
+
+        if (dualPanel) {
+            // nastavit oznacenou pozici v listu
+        }
+    }
+
+    private void updateFakeList() {
         int articleListId = 0;
         for(final Article article : DataStorage.articles){
-            View fakeRow = getActivity().getLayoutInflater().inflate(R.layout.row, listView, false);
-            TextView title = (TextView) fakeRow.findViewById(R.id.title);
-            title.setText(article.title);
-            TextView des = (TextView) fakeRow.findViewById(R.id.description);
-            des.setText(article.description);
-            final int finalArticleListId = articleListId;
-            fakeRow.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onRowClick(finalArticleListId);
-                }
-            });
-            listView.addView(fakeRow);
+            View fakeRow = createFakeRow(article, articleListId);
+            fakeListView.addView(fakeRow);
             articleListId ++;
         }
+    }
+
+    private View createFakeRow(Article article, int articleListId) {
+        View fakeRow = getActivity().getLayoutInflater().inflate(R.layout.row, fakeListView, false);
+        TextView title = (TextView) fakeRow.findViewById(R.id.title);
+        title.setText(article.title);
+        TextView des = (TextView) fakeRow.findViewById(R.id.description);
+        des.setText(article.description);
+        final int finalArticleListId = articleListId;
+        fakeRow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateDetail(finalArticleListId);
+            }
+        });
+        return fakeRow;
+    }
+
+    private void updateDetail(int finalArticleListId) {
+        listener.onRowClick(finalArticleListId);
     }
 
     public interface OnRowClickListener {

@@ -40,7 +40,9 @@ public class DetailActivity extends Activity {
 
         FragmentManager fm = getFragmentManager();
         DetailFragment myFragment = (DetailFragment)  fm.findFragmentById(R.id.detailfragment);
-        myFragment.setViews(title, link, description);
+        myFragment.setLink(link);
+        myFragment.setTitle(title);
+        myFragment.setDescription(description);
     }
 
     @Override
