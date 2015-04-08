@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import cz.cvut.fit.urbanp11.R;
 import cz.cvut.fit.urbanp11.main.data.DataStorage;
-import cz.cvut.fit.urbanp11.main.data.model.Article;
+import cz.cvut.fit.urbanp11.main.data.models.Article;
 
 /**
  * Created by Petr Urban on 18.03.15.

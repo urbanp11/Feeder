@@ -1,0 +1,2 @@
+configurations.create("default")
+artifacts.add("default", file('android-rome-feed-reader-1.0.0-r2.jar'))

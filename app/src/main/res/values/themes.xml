@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="AppTheme.Base"/>
+
+    <style name="AppTheme.Base" parent="Theme.AppCompat">
+        <item name="colorPrimary">@color/myPrimary</item>
+        <item name="colorPrimaryDark">@color/myPrimaryDark</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
+
+    <color name="myPrimary">#78909C</color>
+    <color name="myPrimaryDark">#455A64</color>
+    <color name="myLoader">#FFFF</color>
+</resources>

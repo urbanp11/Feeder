@@ -3,6 +3,8 @@ package cz.cvut.fit.urbanp11.main.main;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.ShareActionProvider;
 
@@ -14,7 +16,7 @@ import cz.cvut.fit.urbanp11.main.detail.DetailFragment;
 /**
  * Created by Petr Urban on 18.03.15.
  */
-public class MainActivity extends Activity implements MainFragment.OnRowClickListener{
+public class MainActivity extends ActionBarActivity implements MainFragment.OnRowClickListener{
 
     private ShareActionProvider provider;
 
@@ -22,7 +24,9 @@ public class MainActivity extends Activity implements MainFragment.OnRowClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//          setContentView(R.layout.activity_dual); // testovani dualniho panelu na telefonu :)
+        Toolbar toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setElevation(25);
     }
 
     @Override

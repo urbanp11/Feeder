@@ -7,13 +7,15 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import cz.cvut.fit.urbanp11.R;
 import cz.cvut.fit.urbanp11.main.data.DataStorage;
 
-public class DetailActivity extends Activity {
+public class DetailActivity extends ActionBarActivity {
 
 
     public static final String ARTICLE_LIST_ID = "ARTICLE_LIST_ID_KEY";
@@ -26,6 +28,10 @@ public class DetailActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setElevation(25);
 
         String title = getResources().getString(R.string.placeholder_title);
         link = getResources().getString(R.string.placeholder_link);

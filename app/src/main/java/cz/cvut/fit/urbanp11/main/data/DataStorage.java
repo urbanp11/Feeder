@@ -1,11 +1,10 @@
 package cz.cvut.fit.urbanp11.main.data;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import cz.cvut.fit.urbanp11.main.data.model.Article;
+import cz.cvut.fit.urbanp11.main.data.models.Article;
 
 /**
  * Created by Petr Urban on 18.03.15.

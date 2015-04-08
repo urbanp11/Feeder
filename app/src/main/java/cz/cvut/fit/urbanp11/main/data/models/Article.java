@@ -1,4 +1,4 @@
-package cz.cvut.fit.urbanp11.main.data.model;
+package cz.cvut.fit.urbanp11.main.data.models;
 
 /**
  * Created by Petr Urban on 18.03.15.
