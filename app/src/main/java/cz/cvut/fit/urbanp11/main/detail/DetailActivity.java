@@ -3,9 +3,11 @@ package cz.cvut.fit.urbanp11.main.detail;
 /**
  * Created by Petr Urban on 18.03.15.
  */
-import android.app.Activity;
+
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
@@ -13,7 +15,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import cz.cvut.fit.urbanp11.R;
-import cz.cvut.fit.urbanp11.main.data.DataStorage;
+import cz.cvut.fit.urbanp11.main.data.provider.Descriptor;
+import cz.cvut.fit.urbanp11.main.data.tables.ArticleTable;
 
 public class DetailActivity extends ActionBarActivity {
 
@@ -21,8 +24,7 @@ public class DetailActivity extends ActionBarActivity {
     public static final String ARTICLE_LIST_ID = "ARTICLE_LIST_ID_KEY";
 
     String link;
-
-    int articleListId;
+    private Uri todoUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,22 +35,17 @@ public class DetailActivity extends ActionBarActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setElevation(25);
 
-        String title = getResources().getString(R.string.placeholder_title);
-        link = getResources().getString(R.string.placeholder_link);
-        String description = getResources().getString(R.string.placeholder_description);
+        Bundle extras = getIntent().getExtras();
+        // Or passed from the other activity
+        if (extras != null) {
+            todoUri = extras.getParcelable(Descriptor.ArticleDescriptor.CONTENT_TYPE_ITEM);
 
-        if (getIntent().getExtras() != null) {
-            articleListId = getIntent().getExtras().getInt(ARTICLE_LIST_ID);
-            title = DataStorage.articles.get(articleListId).title;
-            link = DataStorage.articles.get(articleListId).link;
-            description = DataStorage.articles.get(articleListId).description;
+            FragmentManager fm = getFragmentManager();
+            DetailFragment myFragment = (DetailFragment) fm.findFragmentById(R.id.detailfragment);
+            myFragment.fillData(todoUri);
+            link = myFragment.getLink();
         }
 
-        FragmentManager fm = getFragmentManager();
-        DetailFragment myFragment = (DetailFragment)  fm.findFragmentById(R.id.detailfragment);
-        myFragment.setLink(link);
-        myFragment.setTitle(title);
-        myFragment.setDescription(description);
     }
 
     @Override
@@ -64,11 +61,29 @@ public class DetailActivity extends ActionBarActivity {
 
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("text/plain");
-            intent.putExtra(Intent.EXTRA_TEXT, getResources().getString(R.string.share_link)+ " " + link);
+            intent.putExtra(Intent.EXTRA_TEXT, getResources().getString(R.string.share_link) + " " + link);
             startActivity(Intent.createChooser(intent, getResources().getString(R.string.share_chooser)));
 
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
+//
+//    @Override
+//    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+//        String[] projection = {ArticleTable.COLUMN_ID, ArticleTable.COLUMN_TITLE, ArticleTable.COLUMN_DESCRIPTION};
+//        CursorLoader cursorLoader = new CursorLoader(this,
+//                Descriptor.ArticleDescriptor.CONTENT_URI, projection, null, null, null);
+//        return cursorLoader;
+//    }
+//
+//    @Override
+//    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+//
+//    }
+//
+//    @Override
+//    public void onLoaderReset(Loader<Cursor> loader) {
+//
+//    }
 }

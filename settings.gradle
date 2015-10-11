@@ -1,1 +1,1 @@
-include ':app', ':android-rome-feed-reader-1.0.0-r2'
+include ':app'

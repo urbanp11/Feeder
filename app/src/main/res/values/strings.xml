@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Feeder</string>
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Feeds</string>
     <string name="name">name</string>
     <string name="content">content asd lkasj asjdlk ajsdlk ajsldk jalskjd asklj dlask jd content asd lkasj asjdlk ajsdlk ajsldk jalskjd asklj dlask jd content asd lkasj asjdlk ajsdlk ajsldk jalskjd asklj dlask jd content asd lkasj asjdlk ajsdlk ajsldk jalskjd asklj dlask jd content asd lkasj asjdlk ajsdlk ajsldk jalskjd asklj dlask jd content asd lkasj asjdlk ajsdlk ajsldk jalskjd asklj dlask jd content asd lkasj asjdlk ajsdlk ajsldk jalskjd asklj dlask jd </string>
     <string name="activity_name_detail">RSS Detail</string>
@@ -12,4 +12,15 @@
     <string name="share_link">Link: </string>
     <string name="share_chooser">Share link via:</string>
     <string name="detail_activity">Detail</string>
+    <string name="feeds_activity">Feeds</string>
+    <string name="action_update">udpate</string>
+    <string name="action_add">add</string>
+    <string name="add_feed_hint">feed url</string>
+    <string name="add_feed_dialog_title">Add feed resource</string>
+    <string name="add_feed_ok">ok</string>
+    <string name="add_feed_added">successfully added</string>
+    <string name="add_feed_url_empty">feed url is empty</string>
+    <string name="add_feed_cancel">cancel</string>
+    <string name="menu_refresh">refresh</string>
+    <string name="nothink_to_share">nothink to share yet - choose article</string>
 </resources>

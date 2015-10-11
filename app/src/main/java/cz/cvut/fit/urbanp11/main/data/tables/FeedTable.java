@@ -5,16 +5,13 @@ import android.database.sqlite.SQLiteDatabase;
 /**
  * Created by Petr Urban on 07.04.15.
  */
-public class ArticleTable {
+public class FeedTable {
 
     private void ArticleTable() {}
 
-    public static final String TABLE_NAME = "articles";
+    public static final String TABLE_NAME = "feeds";
     public static final String COLUMN_ID = "_id";
-    public static final String COLUMN_TITLE = "title";
-    public static final String COLUMN_DESCRIPTION = "description";
     public static final String COLUMN_LINK = "link";
-    public static final String COLUMN_SERVER_ID = "server_id";
 
     /**
      * Helper
@@ -23,15 +20,18 @@ public class ArticleTable {
             + TABLE_NAME
             + "("
             + COLUMN_ID + " integer primary key autoincrement, "
-            + COLUMN_TITLE + " text not null, "
-            + COLUMN_DESCRIPTION + " text not null, "
             + COLUMN_LINK + " text not null, "
-            + COLUMN_SERVER_ID + " integer not null,"
-            + "unique(" + COLUMN_TITLE + ")"
+            + "unique(" + COLUMN_LINK + ")"
             + ")";
+
+    private static final java.lang.String INSERT_FEED = "insert into "
+            + TABLE_NAME
+            + "(" + COLUMN_LINK + ") VALUES "
+            + " ('http://servis.idnes.cz/rss.aspx?c=technet')";
 
     public static void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE);
+//        db.execSQL(INSERT_FEED);
     }
 
     public static void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

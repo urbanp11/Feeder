@@ -13,6 +13,7 @@ import java.sql.SQLException;
 
 import cz.cvut.fit.urbanp11.main.data.helper.DatabaseHelper;
 import cz.cvut.fit.urbanp11.main.data.tables.ArticleTable;
+import cz.cvut.fit.urbanp11.main.data.tables.FeedTable;
 
 /**
  * Created by Petr Urban on 07.04.15.
@@ -33,6 +34,8 @@ public class DatabaseProvider extends ContentProvider {
         SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
         int match = Descriptor.URI_MATCHER.match(uri);
 
+        String where;
+
         switch (match) {
             case Descriptor.ArticleDescriptor.PATH_TOKEN:
                 // Set the table
@@ -43,7 +46,19 @@ public class DatabaseProvider extends ContentProvider {
                 // adding the ID to the original query
                 queryBuilder.setTables(ArticleTable.TABLE_NAME);
 //                checkColumns(projection);
-                String where = ArticleTable.COLUMN_ID + "=" + uri.getLastPathSegment();
+                where = ArticleTable.COLUMN_ID + "=" + uri.getLastPathSegment();
+                queryBuilder.appendWhere(where);
+                break;
+            case Descriptor.FeedDescriptor.PATH_TOKEN:
+                // Set the table
+//                checkColumns(projection);
+                queryBuilder.setTables(FeedTable.TABLE_NAME);
+                break;
+            case Descriptor.FeedDescriptor.PATH_FOR_ID_TOKEN:
+                // adding the ID to the original query
+                queryBuilder.setTables(FeedTable.TABLE_NAME);
+//                checkColumns(projection);
+                where = FeedTable.COLUMN_ID + "=" + uri.getLastPathSegment();
                 queryBuilder.appendWhere(where);
                 break;
             default:
@@ -72,6 +87,10 @@ public class DatabaseProvider extends ContentProvider {
                 return Descriptor.ArticleDescriptor.CONTENT_TYPE;
             case Descriptor.ArticleDescriptor.PATH_FOR_ID_TOKEN:
                 return Descriptor.ArticleDescriptor.CONTENT_TYPE_ITEM;
+            case Descriptor.FeedDescriptor.PATH_TOKEN:
+                return Descriptor.FeedDescriptor.CONTENT_TYPE;
+            case Descriptor.FeedDescriptor.PATH_FOR_ID_TOKEN:
+                return Descriptor.FeedDescriptor.CONTENT_TYPE_ITEM;
             default:
                 throw new IllegalArgumentException("Unsupported URI: " + uri);
         }
@@ -86,10 +105,13 @@ public class DatabaseProvider extends ContentProvider {
             case Descriptor.ArticleDescriptor.PATH_TOKEN:
                 table = ArticleTable.TABLE_NAME;
                 break;
+            case Descriptor.FeedDescriptor.PATH_TOKEN:
+                table = FeedTable.TABLE_NAME;
+                break;
             default:
                 throw new IllegalArgumentException("Unsupported uri: " + uri);
         }
-        long id = db.insert(table, null, values);
+        long id = db.insertWithOnConflict(table, null, values, SQLiteDatabase.CONFLICT_IGNORE);
         Uri insertedUri = ContentUris.withAppendedId(uri, id);
         getContext().getContentResolver().notifyChange(insertedUri, null);
         return insertedUri;
@@ -131,6 +153,7 @@ public class DatabaseProvider extends ContentProvider {
         final SQLiteDatabase sqlDB = databaseHelper.getWritableDatabase();
         final int match = Descriptor.URI_MATCHER.match(uri);
 
+        String id;
         int rowsDeleted = 0;
         switch (match) {
             case Descriptor.ArticleDescriptor.PATH_TOKEN:
@@ -139,7 +162,7 @@ public class DatabaseProvider extends ContentProvider {
                         selectionArgs);
                 break;
             case Descriptor.ArticleDescriptor.PATH_FOR_ID_TOKEN:
-                String id = uri.getLastPathSegment();
+                id = uri.getLastPathSegment();
                 if (TextUtils.isEmpty(selection)) {
                     rowsDeleted = sqlDB.delete(ArticleTable.TABLE_NAME,
                             ArticleTable.COLUMN_ID + "=" + id,
@@ -151,6 +174,24 @@ public class DatabaseProvider extends ContentProvider {
                             selectionArgs);
                 }
                 break;
+            case Descriptor.FeedDescriptor.PATH_TOKEN:
+                rowsDeleted = sqlDB.delete(FeedTable.TABLE_NAME,
+                        selection,
+                        selectionArgs);
+                break;
+            case Descriptor.FeedDescriptor.PATH_FOR_ID_TOKEN:
+                id = uri.getLastPathSegment();
+                if (TextUtils.isEmpty(selection)) {
+                    rowsDeleted = sqlDB.delete(FeedTable.TABLE_NAME,
+                            FeedTable.COLUMN_ID + "=" + id,
+                            null);
+                } else {
+                    rowsDeleted = sqlDB.delete(FeedTable.TABLE_NAME,
+                            FeedTable.COLUMN_ID + "=" + id
+                                    + " and " + selection,
+                            selectionArgs);
+                }
+                break;
             default:
                 throw new IllegalArgumentException("Unknown URI: " + uri);
         }
@@ -158,6 +199,15 @@ public class DatabaseProvider extends ContentProvider {
         return rowsDeleted;
     }
 
+    /**
+     * dodelat pro feed tabe
+     *
+     * @param uri
+     * @param values
+     * @param selection
+     * @param selectionArgs
+     * @return
+     */
     @Override
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         final SQLiteDatabase sqlDB = databaseHelper.getWritableDatabase();

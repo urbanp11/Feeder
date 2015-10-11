@@ -25,17 +25,25 @@
 
     <LinearLayout
         android:id="@+id/main_content"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
         android:layout_below="@id/my_awesome_toolbar"
-        android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
         <fragment
             android:id="@+id/listFragment"
-            class="cz.cvut.fit.urbanp11.main.main.MainFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
             android:layout_weight="1"
-            tools:layout="@layout/fake_list"></fragment>
+            android:layout_height="match_parent"
+            class="cz.cvut.fit.urbanp11.main.main.MainFragment"
+            tools:layout="@layout/fake_list" />
+
+        <fragment
+            android:id="@+id/detailfragment"
+            class="cz.cvut.fit.urbanp11.main.detail.DetailFragment"
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            tools:layout="@layout/fragment_detail" />
     </LinearLayout>
 </RelativeLayout>

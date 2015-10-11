@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cz.cvut.fit.urbanp11" >
 
+    <uses-library android:name="org.apache.commons.beanutils" />
+    <uses-library android:name="java.beans" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -20,6 +25,12 @@
             android:name=".main.detail.DetailActivity"
             android:label="@string/detail_activity" >
         </activity>
+        <activity
+            android:name=".main.feeds.FeedsActivity"
+            android:label="@string/feeds_activity" >
+        </activity>
+        <service android:name=".main.service.DownloadService" android:enabled="true"/>
+        <receiver android:name=".main.service.BrReceiver"/>
         <provider
             android:name=".main.data.provider.DatabaseProvider"
             android:authorities="cz.cvut.fit.urbanp11.feeder.databaseprovider" >

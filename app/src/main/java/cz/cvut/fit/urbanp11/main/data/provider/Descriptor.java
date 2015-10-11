@@ -19,6 +19,8 @@ public class Descriptor {
         final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
         matcher.addURI(AUTHORITY, ArticleDescriptor.PATH, ArticleDescriptor.PATH_TOKEN);
         matcher.addURI(AUTHORITY, ArticleDescriptor.PATH_FOR_ID, ArticleDescriptor.PATH_FOR_ID_TOKEN);
+        matcher.addURI(AUTHORITY, FeedDescriptor.PATH, FeedDescriptor.PATH_TOKEN);
+        matcher.addURI(AUTHORITY, FeedDescriptor.PATH_FOR_ID, FeedDescriptor.PATH_FOR_ID_TOKEN);
 
         return matcher;
     }
@@ -31,8 +33,21 @@ public class Descriptor {
 
         public static final String PATH = "articles";
         public static final int PATH_TOKEN = 100;
-        public static final String PATH_FOR_ID = "article/#";
+        public static final String PATH_FOR_ID = "articles/#";
         public static final int PATH_FOR_ID_TOKEN = 200;
+
+        public static final Uri CONTENT_URI = BASE_URI.buildUpon().appendPath(PATH).build();
+    }
+
+    public static class FeedDescriptor {
+
+        public static final String CONTENT_TYPE = "vnd.urbanp11.cursor.dir/vnd.cz.cvut.fit.urbanp11.feedtable";
+        public static final String CONTENT_TYPE_ITEM = "vnd.urbanp11.cursor.item/vnd.cz.cvut.fit.urbanp11.feedtable";
+
+        public static final String PATH = "feeds";
+        public static final int PATH_TOKEN = 300;
+        public static final String PATH_FOR_ID = "feeds/#";
+        public static final int PATH_FOR_ID_TOKEN = 400;
 
         public static final Uri CONTENT_URI = BASE_URI.buildUpon().appendPath(PATH).build();
     }
